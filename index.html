@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scroll-Based Website</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- added: outline for characters (stroke + shadow) and small transparency on container -->
+    <style>
+        .logo-title {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            background-color: rgba(255,255,255,0.03); /* slight transparent bg */
+            border: 2px solid rgba(255,255,255,0.22);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .logo-title .word {
+            display: inline-block;
+            vertical-align: middle;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: #ffffff; /* white ice stroke */
+            /* fallback outline using multiple shadows for other browsers + icy glow */
+            text-shadow:
+                0 1px 0 rgba(255,255,255,0.95),    /* bright rim */
+                0 2px 6px rgba(173, 216, 255, 0.25), /* soft bluish glow */
+                0 0 10px rgba(173, 216, 255, 0.08), /* subtle bloom */
+               -1px 0 0 rgba(255,255,255,0.85),
+                1px 0 0 rgba(255,255,255,0.85);
+            color: inherit;
+            opacity: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .logo-title .top { color: #ff1616; }
+        .logo-title .n   { color: #ffec18; margin: 0 0.6rem; }
+        .logo-title .town{ color: #67ff7b; }
+
+        /* Typing effect styles */
+        .typing-paragraph {
+            white-space: pre-wrap;
+            min-height: 1.4em; /* avoid layout jump while typing */
+        }
+        .typing-paragraph.typing::after {
+            content: '|';
+            display: inline-block;
+            margin-left: 4px;
+            color: rgba(255,255,255,0.95);
+            animation: blink 1s steps(1) infinite;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Card styling with individual colors */
+        .card {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .card-image {
+            width: 100%;
+            max-width: 200px;
+            height: 280px;
+            object-fit: contain;
+        }
+
+        /* Individual card colors */
+        #card1 { background: linear-gradient(135deg, rgb(181, 237, 108), #e0af53); }
+        #card2 { background: linear-gradient(135deg, rgb(241, 202, 183),rgb(221, 174, 152)); }
+        #card3 { background: linear-gradient(135deg, rgb(228 227 223), rgb(228 227 223)); }
+        #card4 { background: linear-gradient(135deg,rgb(253, 221, 187), rgb(228, 186, 140)); }
+        #card5 { background: linear-gradient(135deg, #FCBAD3, #A8E6CF); }
+    </style>
+</head>
+
+<body class="text-white">
+    <canvas id="webgl-canvas"></canvas>
+
+    <nav class="fixed top-0 left-0 w-full p-4 z-20">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#">
+                <img src="https://synques-cdn.s3.ap-south-1.amazonaws.com/topntown.in/images/top-n-town.png" alt="Logo" class="h-12">
+            </a>
+            <div class="hidden md:flex items-center space-x-6 text-[12px] text-white">
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Home</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Our Story</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Products</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Franchise</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Awards</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Contact Us</a>
+            </div>
+            <div class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <main class="scroll-container">
+        <section class="page-section">
+            <div class="page-content text-center">
+                <h1 class="text-8xl font-extrabold logo-title" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">
+                    <span class="word top">Top</span>
+                    <span class="word n" style="margin: 0 0.6rem;">N</span>
+                    <span class="word town">Town</span>
+                </h1>
+                <p class="text-xl mt-4">The ultimate 3D ice cream experience.</p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="page-content text-left max-w-lg px-8">
+                <h2 class="text-6xl font-extrabold" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Featured</h2>
+                <p class="text-lg mt-4">
+                    Lorem inigerum Algom, promissas omenes, et cum suae, aras. 
+                    Irinom conplexa meorum. Dedit arvales, sed non conlataque viscera et.
+                </p>
+            </div>
+        </section>
+
+        <!-- NEW: About / Welcome section inserted above Featured Flavors -->
+        <section id="welcome-section" class="page-section">
+            <div class="page-content text-left max-w-2xl px-8">
+                <h2 class="text-6xl font-extrabold" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Welcome to Top 'N Town</h2>
+
+                <p class="text-lg mt-4 typing-paragraph text-[#000000]" data-text="We are a family dedicated to the timeless art of ice cream making—an art we’ve passionately perfected over four decades. Whether it’s a festive family gathering, an intimate dinner, or a quiet evening under the stars, our flavors create moments worth savoring. Great ice cream requires more than superior ingredients; it demands exceptional people. Our skilled artisans continuously explore new flavor combinations, carefully crafting each batch to surprise, delight, and deliver an unforgettable experience."></p>
+
+                <p class="text-lg mt-4 typing-paragraph text-[#000000]" data-text="With every spoonful of Top N Town ice cream, you taste not just quality ingredients, but a hint of the passion and tradition we pour into every scoop."></p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="page-content text-center w-full px-8">
+                <h2 class="text-6xl font-extrabold mb-16" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Featured Flavors</h2>
+                
+                <div class="flex flex-row justify-center gap-6">
+                    
+                    <div id="card1" class="card">
+                        <h2 class="card-title">Aamras</h2>
+                        <img 
+                            src="images\c4e13efd8dcd72c1c23fb1853487c363-removebg-preview.png" 
+                            alt="Aamras" 
+                            class="card-image"
+                            onerror="this.src='https://placehold.co/180x250/eeeeee/999999?text=Image+Missing'"
+                        >
+                    </div>
+
+                    <div id="card2" class="card">
+                        <h2 class="card-title">Choco</h2>
+                        <img 
+                            src="images\132960a037a656fe1a4873023f50abcc-removebg-preview.png" 
+                            alt="Choco" 
+                            class="card-image"
+                            onerror="this.src='https://placehold.co/180x250/eeeeee/999999?text=Image+Missing'"
+                        >
+                    </div>
+                    
+                    <div id="card3" class="card">
+                        <h2 class="card-title">Cake</h2>
+                        <img 
+                            src="images\385147a78e5fde98c3d1f31047acb585-removebg-preview.png" 
+                            alt="Jennie" 
+                            class="card-image"
+                            onerror="this.src='https://placehold.co/180x250/eeeeee/999999?text=Image+Missing'"
+                        >
+                    </div>
+
+                    <div id="card4" class="card">
+                        <h2 class="card-title">Kulfi</h2>
+                        <img 
+                            src="images\38178fab2fac05eebfeb209e1e2366c5-removebg-preview.png" 
+                            alt="Kulfi" 
+                            class="card-image"
+                            onerror="this.src='https://placehold.co/180x250/eeeeee/999999?text=Image+Missing'"
+                        >
+                    </div>
+
+                    <div id="card5" class="card">
+                        <h2 class="card-title">Dry Fruit</h2>
+                        <img 
+                            src="images\7010fa31b5da2d51e210e020db8d7668-removebg-preview.png" 
+                            alt="Dry Fruit" 
+                            class="card-image"
+                            onerror="this.src='https://placehold.co/180x250/eeeeee/999999?text=Image+Missing'"
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="page-content text-center max-w-lg px-8">
+                <h2 class="text-6xl font-extrabold" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Picolinos</h2>
+                <p class="text-lg mt-4">
+                    A new world of flavor awaits. Bite-sized, bold, and ready to blow your mind.
+                </p>
+            </div>
+        </section>
+
+        <!-- Page 5: Footer -->
+        <section id="footer-section" class="page-section relative overflow-hidden">
+            <!-- Parallax Background -->
+            <div id="footer-bg" class="absolute top-[-25%] left-0 w-full h-[150%] bg-cover bg-center z-0" style="background-image: url('https://images.unsplash.com/photo-1580902314253-348ab3a5a4be?q=80&w=2070&auto=format&fit=crop');"></div>
+            
+            <!-- Footer Content -->
+            <div class="relative z-10 container mx-auto text-center text-white">
+                <h2 class="text-5xl font-bold mb-8" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">Connect With Us</h2>
+                <div class="flex justify-center gap-10 text-lg mb-10">
+                    <a href="#" class="hover:scale-110 transition-transform">Facebook</a>
+                    <a href="#" class="hover:scale-110 transition-transform">Instagram</a>
+                    <a href="#" class="hover:scale-110 transition-transform">Twitter</a>
+                </div>
+                <p class="text-sm opacity-70">&copy; 2025 Hero Cream. All Rights Reserved.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+
+    <!-- Typing-on-scroll script -->
+    <script>
+        (function(){
+            const welcome = document.getElementById('welcome-section');
+            if (!welcome) return;
+
+            const paragraphs = welcome.querySelectorAll('.typing-paragraph');
+            if (!paragraphs.length) return;
+
+            let started = false;
+
+            const typeText = (el, text, speed = 15) => {
+                return new Promise(resolve => {
+                    el.classList.add('typing');
+                    el.textContent = '';
+                    let i = 0;
+                    const step = () => {
+                        if (i < text.length) {
+                            el.textContent += text.charAt(i++);
+                            // reduced random variance for consistent faster typing
+                            setTimeout(step, Math.max(6, speed + Math.random() * 5));
+                        } else {
+                            el.classList.remove('typing');
+                            resolve();
+                        }
+                    };
+                    step();
+                });
+            };
+
+            const typeSequence = async () => {
+                if (started) return;
+                started = true;
+                for (const p of paragraphs) {
+                    const txt = p.getAttribute('data-text') || '';
+                    await typeText(p, txt, 9); // was 18 — now half for 2x speed
+                    // short pause between paragraphs
+                    await new Promise(r => setTimeout(r, 250));
+                }
+            };
+
+            const io = new IntersectionObserver((entries, obs) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.35) {
+                        typeSequence();
+                        obs.unobserve(welcome);
+                    }
+                }
+            }, { threshold: [0.15, 0.35, 0.6] });
+
+            io.observe(welcome);
+        })();
+    </script>
+</body>
+</html>
