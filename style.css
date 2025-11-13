@@ -1,4 +1,4 @@
-/* Define custom font */
+
 @font-face {
     font-family: 'amonk';
     src: url('amonk/Amonk\ Ice-SVG.ttf') format('truetype');
@@ -6,7 +6,6 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    /* Replace the gradient with a background image */
     background-image: url('./images/background.png');
     background-size: cover;
     background-position: center;
@@ -15,19 +14,18 @@ body {
     position: relative;
 }
 
-/* Apply custom font to Hero Cream heading */
+
 h1 {
     font-family: 'amonk', sans-serif;
     font-size: 4rem;
     font-weight: bold;
 }
 
-/* Also apply to other headings if desired */
+
 h2 {
     font-family: 'amonk', sans-serif;
 }
 
-/* Add a semi-transparent overlay to the body */
 body::before {
     content: '';
     position: fixed;
@@ -35,16 +33,16 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0,rgba(0, 0, 0, 0.5)); /* 50% opacity black overlay */
+    background-color: rgba(0, 0, 0,rgba(0, 0, 0, 0.5)); 
     z-index: 0;
-    pointer-events: none; /* Allow clicks to pass through */
+    pointer-events: none; 
 }
 
 nav {
-    background: rgba(105, 78, 78, 0.25); /* Light chocolately semi-transparent */
+    background: rgba(105, 78, 78, 0.25); 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(230, 157, 155, 0.3); /* Light chocolately border */
+    border-bottom: 1px solid rgba(230, 157, 155, 0.3); 
 }
 
 
@@ -60,7 +58,7 @@ body::-webkit-scrollbar-thumb {
     border: 3px solid transparent;
 }
 
-/* Canvas */
+
 #webgl-canvas {
     position: fixed;
     top: 0;
@@ -69,16 +67,16 @@ body::-webkit-scrollbar-thumb {
     z-index: -1;
 }
 
-/* Scrollable container */
+
 .scroll-container {
-    position: relative; /* Changed from absolute */
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 10; /* Ensure it's above the overlay */
+    z-index: 10; 
 }
 
-/* Full-page sections */
+
 .page-section {
     height: 100vh;
     width: 100%;
@@ -89,51 +87,42 @@ body::-webkit-scrollbar-thumb {
     font-family: 'Inter', sans-serif;
 }
 
-/* --- DELETED OLD CARD STYLES (.card-3d, .card-inner, etc.) --- */
 
 
-/* --- ADDED NEW CARD STYLES FROM YOUR EXAMPLE --- */
 
 .card {
-    width: 240px; /* Card width */
-    height: 340px; /* Card height */
+    width: 240px; 
+    height: 340px; 
     background: rgb(214 185 214);
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 20px; /* Padding inside the card */
-    
-    /* 3D and transition properties */
+    padding: 20px; 
     transform-style: preserve-3d;
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Card Content */
+
 .card-title {
     margin-bottom: 10px;
     font-size: 1.5rem;
     font-weight: 600;
-    color: #333; /* Changed text color to be visible on new bg */
-    
-    /* Pushes the title "out" */
+    color: #333; 
     transform: translateZ(30px);
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .card-image {
-    width: 100%; /* Image fills the content area */
-    height: 280px; /* MODIFIED: Was 250px, changed to 220px to fit */
+    width: 100%; 
+    height: 280px; 
     border-radius: 15px;
     object-fit: cover;
     background: transparent;
-    
-    /* Pushes the image "out" further */
     transform: translateZ(50px);
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
     
 }
 
-/* Footer Parallax Styles */
 #footer-section::before {
     content: '';
     position: absolute;
@@ -141,7 +130,7 @@ body::-webkit-scrollbar-thumb {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    background: rgba(0, 0, 0, 0.5); 
     z-index: 1;
 }
 

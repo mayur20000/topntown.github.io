@@ -12,13 +12,12 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- added: outline for characters (stroke + shadow) and small transparency on container -->
     <style>
         .logo-title {
             display: inline-block;
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            background-color: rgba(255,255,255,0.03); /* slight transparent bg */
+            background-color: rgba(255,255,255,0.03); 
             border: 2px solid rgba(255,255,255,0.22);
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
@@ -28,12 +27,12 @@
             display: inline-block;
             vertical-align: middle;
             -webkit-text-stroke-width: 2px;
-            -webkit-text-stroke-color: #ffffff; /* white ice stroke */
-            /* fallback outline using multiple shadows for other browsers + icy glow */
+            -webkit-text-stroke-color: #ffffff; 
+            
             text-shadow:
-                0 1px 0 rgba(255,255,255,0.95),    /* bright rim */
-                0 2px 6px rgba(173, 216, 255, 0.25), /* soft bluish glow */
-                0 0 10px rgba(173, 216, 255, 0.08), /* subtle bloom */
+                0 1px 0 rgba(255,255,255,0.95),    
+                0 2px 6px rgba(173, 216, 255, 0.25), 
+                0 0 10px rgba(173, 216, 255, 0.08), 
                -1px 0 0 rgba(255,255,255,0.85),
                 1px 0 0 rgba(255,255,255,0.85);
             color: inherit;
@@ -46,7 +45,7 @@
         .logo-title .n   { color: #ffec18; margin: 0 0.6rem; }
         .logo-title .town{ color: #67ff7b; }
 
-        /* Heading stroke styles */
+        
         h2 {
             -webkit-text-stroke-width: 1.5px;
             -webkit-text-stroke-color: #ffffff;
@@ -57,12 +56,12 @@
                 0.5px 0 0 rgba(255,255,255,0.8);
         }
 
-        /* Paragraph stroke styles - REMOVED */
+        
         p {
             text-shadow: none;
         }
 
-        /* Card title - no stroke */
+        
         .card-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -72,10 +71,10 @@
             text-shadow: none;
         }
 
-        /* Typing effect styles */
+        
         .typing-paragraph {
             white-space: pre-wrap;
-            min-height: 1.4em; /* avoid layout jump while typing */
+            min-height: 1.4em; 
         }
         .typing-paragraph.typing::after {
             content: '|';
@@ -89,7 +88,7 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Card styling with individual colors */
+        
         .card {
             padding: 1.5rem;
             border-radius: 0.75rem;
@@ -115,7 +114,7 @@
             object-fit: contain;
         }
 
-        /* Individual card colors */
+        
         #card1 { background: linear-gradient(135deg, rgb(181, 237, 108), #e0af53); }
         #card2 { background: linear-gradient(135deg, rgb(241, 202, 183),rgb(221, 174, 152)); }
         #card3 { background: linear-gradient(135deg, rgb(228 227 223), rgb(228 227 223)); }
@@ -168,7 +167,7 @@
             </div>
         </section>
 
-        <!-- NEW: About / Welcome section inserted above Featured Flavors -->
+        
         <section id="welcome-section" class="page-section">
             <div class="page-content text-left max-w-2xl px-8">
                 <h2 class="text-6xl font-extrabold text-[#67ff7b]" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Welcome to Top 'N Town</h2>
@@ -247,12 +246,12 @@
             </div>
         </section>
 
-        <!-- Page 5: Footer -->
+        
         <section id="footer-section" class="page-section relative overflow-hidden">
-            <!-- Parallax Background -->
+            
             <div id="footer-bg" class="absolute top-[-25%] left-0 w-full h-[150%] bg-cover bg-center z-0" style="background-image: url('https://images.unsplash.com/photo-1580902314253-348ab3a5a4be?q=80&w=2070&auto=format&fit=crop');"></div>
             
-            <!-- Footer Content -->
+            
             <div class="relative z-10 container mx-auto text-center text-white">
                 <h2 class="text-5xl font-bold mb-8" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.5);">Connect With Us</h2>
                 <div class="flex justify-center gap-10 text-lg mb-10">
@@ -267,7 +266,7 @@
 
     <script src="script.js"></script>
 
-    <!-- Typing-on-scroll script -->
+    
     <script>
         (function(){
             const welcome = document.getElementById('welcome-section');
@@ -286,7 +285,7 @@
                     const step = () => {
                         if (i < text.length) {
                             el.textContent += text.charAt(i++);
-                            // reduced random variance for consistent faster typing
+                            
                             setTimeout(step, Math.max(6, speed + Math.random() * 5));
                         } else {
                             el.classList.remove('typing');
@@ -302,8 +301,8 @@
                 started = true;
                 for (const p of paragraphs) {
                     const txt = p.getAttribute('data-text') || '';
-                    await typeText(p, txt, 9); // was 18 — now half for 2x speed
-                    // short pause between paragraphs
+                    await typeText(p, txt, 9); 
+                    
                     await new Promise(r => setTimeout(r, 250));
                 }
             };
