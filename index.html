@@ -46,6 +46,32 @@
         .logo-title .n   { color: #ffec18; margin: 0 0.6rem; }
         .logo-title .town{ color: #67ff7b; }
 
+        /* Heading stroke styles */
+        h2 {
+            -webkit-text-stroke-width: 1.5px;
+            -webkit-text-stroke-color: #ffffff;
+            text-shadow:
+                0 1px 0 rgba(255,255,255,0.9),
+                0 2px 4px rgba(173, 216, 255, 0.2),
+                -0.5px 0 0 rgba(255,255,255,0.8),
+                0.5px 0 0 rgba(255,255,255,0.8);
+        }
+
+        /* Paragraph stroke styles - REMOVED */
+        p {
+            text-shadow: none;
+        }
+
+        /* Card title - no stroke */
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            -webkit-text-stroke-width: 0;
+            -webkit-text-stroke-color: transparent;
+            text-shadow: none;
+        }
+
         /* Typing effect styles */
         .typing-paragraph {
             white-space: pre-wrap;
@@ -107,12 +133,12 @@
                 <img src="https://synques-cdn.s3.ap-south-1.amazonaws.com/topntown.in/images/top-n-town.png" alt="Logo" class="h-12">
             </a>
             <div class="hidden md:flex items-center space-x-6 text-[12px] text-white">
-                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Home</a>
-                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Our Story</a>
-                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Products</a>
-                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Franchise</a>
-                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Awards</a>
-                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F] hover:bg-opacity-50 transition-colors">Contact Us</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#281300]  transition-colors">Home</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#281300]  transition-colors">Our Story</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F]  transition-colors">Products</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F]  transition-colors">Franchise</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F]  transition-colors">Awards</a>
+                <a href="#" class="border-2 border-[#3D2B1F] rounded-full px-4 py-2 hover:bg-[#3D2B1F]  transition-colors">Contact Us</a>
             </div>
             <div class="md:hidden text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,16 +156,14 @@
                     <span class="word n" style="margin: 0 0.6rem;">N</span>
                     <span class="word town">Town</span>
                 </h1>
-                <p class="text-xl mt-4">The ultimate 3D ice cream experience.</p>
-            </div>
+                <p class="text-xl mt-4 text-black font-bold">Handcrafted ice cream perfected over four decades.</p></div>
         </section>
 
         <section class="page-section">
             <div class="page-content text-left max-w-lg px-8">
-                <h2 class="text-6xl font-extrabold" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Featured</h2>
-                <p class="text-lg mt-4">
-                    Lorem inigerum Algom, promissas omenes, et cum suae, aras. 
-                    Irinom conplexa meorum. Dedit arvales, sed non conlataque viscera et.
+                <h2 class="text-6xl font-extrabold text-[#ff1616]" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Featured</h2>
+                <p class="text-lg mt-4 text-black">
+                    Since 1985, Top 'N Town has been crafting handmade ice cream with passion and precision. Every scoop tells a story of tradition, quality ingredients, and the love we pour into each flavor.From classic favorites to bold new creations, our ice cream is more than a treat—it's a moment of pure joy
                 </p>
             </div>
         </section>
@@ -147,17 +171,17 @@
         <!-- NEW: About / Welcome section inserted above Featured Flavors -->
         <section id="welcome-section" class="page-section">
             <div class="page-content text-left max-w-2xl px-8">
-                <h2 class="text-6xl font-extrabold" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Welcome to Top 'N Town</h2>
+                <h2 class="text-6xl font-extrabold text-[#67ff7b]" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Welcome to Top 'N Town</h2>
 
-                <p class="text-lg mt-4 typing-paragraph text-[#000000]" data-text="We are a family dedicated to the timeless art of ice cream making—an art we’ve passionately perfected over four decades. Whether it’s a festive family gathering, an intimate dinner, or a quiet evening under the stars, our flavors create moments worth savoring. Great ice cream requires more than superior ingredients; it demands exceptional people. Our skilled artisans continuously explore new flavor combinations, carefully crafting each batch to surprise, delight, and deliver an unforgettable experience."></p>
+                <p class="text-lg mt-4 typing-paragraph text-black" data-text="We are a family dedicated to the timeless art of ice cream making—an art we've passionately perfected over four decades. Whether it's a festive family gathering, an intimate dinner, or a quiet evening under the stars, our flavors create moments worth savoring. Great ice cream requires more than superior ingredients; it demands exceptional people. Our skilled artisans continuously explore new flavor combinations, carefully crafting each batch to surprise, delight, and deliver an unforgettable experience."></p>
 
-                <p class="text-lg mt-4 typing-paragraph text-[#000000]" data-text="With every spoonful of Top N Town ice cream, you taste not just quality ingredients, but a hint of the passion and tradition we pour into every scoop."></p>
+                <p class="text-lg mt-4 typing-paragraph text-black" data-text="With every spoonful of Top N Town ice cream, you taste not just quality ingredients, but a hint of the passion and tradition we pour into every scoop."></p>
             </div>
         </section>
 
         <section class="page-section">
             <div class="page-content text-center w-full px-8">
-                <h2 class="text-6xl font-extrabold mb-16" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Featured Flavors</h2>
+                <h2 class="text-6xl font-extrabold mb-16 text-[#ffec18]" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Featured Flavors</h2>
                 
                 <div class="flex flex-row justify-center gap-6">
                     
@@ -216,8 +240,8 @@
 
         <section class="page-section">
             <div class="page-content text-center max-w-lg px-8">
-                <h2 class="text-6xl font-extrabold" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Picolinos</h2>
-                <p class="text-lg mt-4">
+                <h2 class="text-6xl font-extrabold text-[#ff1616]" style="text-shadow: 2px 2px 8px rgba(0,0,0,0.2);">Picolinos</h2>
+                <p class="text-lg mt-4 text-black">
                     A new world of flavor awaits. Bite-sized, bold, and ready to blow your mind.
                 </p>
             </div>
@@ -236,7 +260,7 @@
                     <a href="#" class="hover:scale-110 transition-transform">Instagram</a>
                     <a href="#" class="hover:scale-110 transition-transform">Twitter</a>
                 </div>
-                <p class="text-sm opacity-70">&copy; 2025 Hero Cream. All Rights Reserved.</p>
+                <p class="text-sm opacity-70">&copy; 2025 Top N Town. All Rights Reserved.</p>
             </div>
         </section>
     </main>
